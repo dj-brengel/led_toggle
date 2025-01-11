@@ -1,7 +1,3 @@
-//Where is the LED connected?
-//Port: A
-//Pin: 5
-
 #include<stdint.h>
 
 //Peripheral address
@@ -19,10 +15,10 @@
 //as an output pin, output data register used to store data
 //written to pin)
 #define GPIOX_MODER_OFFSET 	0x00000000UL
-#define GPIOX_MODER			(*(volatile unsigned int*)(GPIOA_BASE + GPIOX_MODER_OFFSET))
+
 
 #define GPIOX_ODR_OFFSET 	0x00000014UL
-#define GPIOX_ODR			(*(volatile unsigned int*)(GPIOA_BASE + GPIOX_ODR_OFFSET))
+
 
 //RCC address
 #define RCC_OFFSET 			0x00003800UL
@@ -30,7 +26,7 @@
 
 //RCC peripheral registers
 #define RCC_AHB1ENR_OFFSET	0x00000030UL
-#define RCC_AHB1ENR			(*(volatile unsigned int*)(RCC_BASE + RCC_AHB1ENR_OFFSET))
+
 
 //RCC bits
 #define GPIOAEN 			(1U<<0)
@@ -51,16 +47,15 @@ typedef struct
 {
 	volatile uint32_t DUMMY[12];
 	volatile uint32_t AHB1ENR;
-
 }RCC_TypeDef;
 
 #define RCC 		((RCC_TypeDef*) RCC_BASE)
-#define GPIOA	((GPIO_TypeDef*) GPIOA_BASE)
+#define GPIOA		((GPIO_TypeDef*) GPIOA_BASE)
 
 
 
 
-int main()
+int main(void)
 {
 	//1. Enable clock access to GPIOA
 	RCC->AHB1ENR |= GPIOAEN;
